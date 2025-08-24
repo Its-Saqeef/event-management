@@ -20,6 +20,10 @@ app.on("error",(err)=>{
     throw Error(err)
 })
 
+app.get("/",(req,res)=>{
+    return res.send("<h1>HEllo</h1>")
+})
+
 //routes import
 import userRouter from "./routes/User.route.js"
 import eventRouter from "./routes/Event.route.js"
