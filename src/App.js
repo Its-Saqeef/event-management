@@ -21,8 +21,11 @@ app.on("error",(err)=>{
 })
 
 app.get("/",(req,res)=>{
-    return res.send("<h1>HEllo</h1>")
+    res.status(200).json({
+        message : "Welcome to Event Management API"
+    })
 })
+
 
 //routes import
 import userRouter from "./routes/User.route.js"
