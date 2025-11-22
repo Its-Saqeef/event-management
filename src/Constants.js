@@ -1,1 +1,1 @@
-export const DB_NAME="eventmanagement"
+export const DB_NAME = "eventmanagement"
