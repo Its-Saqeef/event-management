@@ -1,6 +1,8 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import swaggerUi from "swagger-ui-express"
+import swaggerJSDoc from "swagger-jsdoc"
 
 const app=express()
 app.use(cors({
@@ -25,6 +27,32 @@ app.get("/",(req,res)=>{
         message : "Welcome to Event Management API"
     })
 })
+
+// --- Swagger setup ---
+const swaggerDefinition = {
+    openapi: '3.0.0',
+    info: {
+        title: 'Event Management API',
+        version: '1.0.0',
+        description: 'API documentation for the Event Management Platform',
+    },
+    servers: [
+        {
+            url: process.env.CLIENT_URL || `http://localhost:${process.env.PORT || 4000}`,
+        },
+    ],
+}
+
+const swaggerOptions = {
+    swaggerDefinition,
+    apis: ['./src/routes/*.js','./src/controllers/*.js'],
+}
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions)
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.get('/api/docs.json', (req, res) => res.json(swaggerSpec))
+
 
 
 //routes import
