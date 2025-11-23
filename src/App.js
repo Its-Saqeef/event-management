@@ -28,6 +28,11 @@ app.get("/",(req,res)=>{
     })
 })
 
+const SERVER_URL = process.env.NODE_ENV === 'production'
+    ? process.env.PROD_SERVER_URL
+    : process.env.DEV_SERVER_URL;
+
+
 // --- Swagger setup ---
 const swaggerDefinition = {
     openapi: '3.0.0',
@@ -38,7 +43,10 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: process.env.CLIENT_URL || `http://localhost:${process.env.PORT || 4000}`,
+            url: SERVER_URL,
+            description: process.env.NODE_ENV === 'production' 
+                ? 'Production server' 
+                : 'Development server',
         },
     ],
 }
